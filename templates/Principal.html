@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
@@ -8,71 +8,50 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
         type="text/css">
     <link rel="stylesheet" href="https://static.pingendo.com/bootstrap/bootstrap-4.3.1.css">
+
     <title>Trabalho</title>
 </head>
 
 <body>
-    <div class="d-flex justify-content-center">
-        <h1 class="">Total de casos: {{ todosDados.total }}</h1>
+    <!-- NAVBAR BRABA -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03"
+            aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="/">HISAC?</a>
+
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="/casos">Casos <span class="sr-only">(current)</span></a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0 mr-5" action="/PesquisarFilme" method="post">
+                <input class="form-control mr-sm-2" type="search" placeholder="Pesquisar..." aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0 mr-3" id="pessoa" name="pessoa" type="submit">Pessoa</button>
+                <button class="btn btn-outline-danger my-2 my-sm-0" id="local" name="local" type="submit">local</button>
+            </form>
+        </div>
+    </nav>
+    <div class="container">
+        <h1 class="d-flex justify-content-center">Mais sobre o HISAC</h1>
+
+        <h2>Mais sobre o nosso trabalho</h2>
+        <p>
+            HISAC? (Have I Seen a Criminal?), ou traduzido para o português como "Eu vi um criminoso?", como o próprio nome já diz se trata da pessoa saber ou não se viu um criminoso
+        </p>
+        <p>
+            Para pegar esses dados nós pegamos os mais procurados do FBI e colocamos em uma rota chamada <a href="/casos">casos</a>, assim a pessoa consegue encontrar o criminoso pela foto ou pelos detalhes.
+        </p>
+
+        <p>
+            Esses detalhes aparecem no card do criminoso, sendo assim, a pessoa consegue ver se é o criminoso tanto pela imagem e tanto pelas informações sendo lidas, fazendo com que a confirmação seja mais certa.
+
+        </p>
     </div>
 
-    <div class="row justify-content-center">
-        {% for procurado in procurados %}
-        <!-- MODAL -->
-        <div class="modal fade" id="V{{loop.index}}" tabindex="-1" role="dialog"
-            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">Mais dados do procurado</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <table class="table table-dark">
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Nome</th>
-                                    <th scope="col">Kilometragem</th>
-                                    <th scope="col">Preço</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row">{{loop.index}}</th>
-                                    <th>{{ procurado }}</th>
-
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="modal-footer">
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col m-5 efeitoManeiro">
-
-            <div class="card" style="width: 18rem;">
-                <h4>{{procurado.title}}</h4>
-                {% if procurado.images[0].original %}
-                    <img class="card-img-top" src="{{procurado.images[0].original}}" alt="Procurado do FBI" width="280" height="210">
-
-                {% endif %}
-
-                <div class="card-body">
-                    <p class="card-text">{{procurado.details}}</p>
-                </div>
-                <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#V{{loop.index}}">
-                    Mais sobre
-                </button>
-            </div>
-        </div>
-        {% endfor %}
-    </div>
+    <!-- BOOTSTRAP -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
         </script>
