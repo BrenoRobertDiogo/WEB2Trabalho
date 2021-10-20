@@ -22,5 +22,14 @@ def Index():
     # print(requisicao)
     return render_template('Principal.html', todosDados=requisicao, procurados=requisicao['items'])
 
+@app.route('/casos', methods=["GET", "POST"])
+def casos():
+    return render_template('casos.html')
+
+
+@app.route('/casos/<titulo_caso>', methods=["GET"])
+def detalhes():
+    return render_template('detalhes.html')
+    
 if __name__ == '__main__':
     app.run(debug=True)
