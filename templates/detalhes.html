@@ -24,9 +24,10 @@
         <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="/">Casos <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="/casos">Casos <span class="sr-only">(current)</span></a>
                 </li>
-            </ul><!-- 
+            </ul>
+            <!-- 
             <form class="form-inline my-2 my-lg-0">
                 <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
@@ -34,14 +35,25 @@
         </div>
     </nav>
     <div class="container">
-        {{campos}}
-        <h1>Teste</h1>
-        {% for valor in campos %}
-               <p> <b>{{valor['mostrar']}}</b>: {{ pessoa['items'][0][valor['filtro']] }}</p> 
-              
-        {% endfor %}
+        <div class="row">
+            <div class="col-3">
+                {% if pessoa['items'][0]['images'] %}
+                <img style="border-radius: 30%;" width="150" height="150"
+                    src="{{pessoa['items'][0]['images'][0]['large']}}" alt="imagem de {{pessoa['items'][0]['title']}}">
 
-        {{pessoa['items'][0]}}
+                {% endif %}
+
+            </div>
+            <div class="col-9">
+                <h1 class=""><b> {{pessoa['items'][0]['title']}}</b> </h1>
+            </div>
+        </div>
+
+        {% for valor in campos %}
+            <p> <b>{{valor['mostrar']}}</b>: {{ pessoa['items'][0][valor['filtro']]}}</p>
+
+
+        {% endfor %}
         <!-- {{pessoa}} -->
     </div>
     <!-- BOOTSTRAP -->
