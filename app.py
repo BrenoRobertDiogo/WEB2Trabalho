@@ -13,15 +13,6 @@ from controllers import informacoes as inf
 # base: https://www.fbi.gov/wanted/api
 app = Flask(__name__, static_folder='./assets')
 
-""" @app.route('/detalhes/')
-def hello_world():  # put application's code here
-    cp = request.args.get('cap')
-    livro = loadDados()[cp]
-    # print(livro)
-    return render_template('app.html', texto=livro)
-"""
-
-
 @app.route('/', methods=["GET", "POST"])
 def Index():
     return render_template('Principal.html')
@@ -29,9 +20,18 @@ def Index():
 
 @app.route('/casos', methods=["GET", "POST"])
 def casos():
-    requisicao = inf.informacoesCaso(filtros = {
-            'page': '2'
+    if request.args.get('estado'):
+        estado = request.args.get('estado')
+        requisicao = inf.informacoesCaso(filtros = {
+                'field_offices': estado
+            
         })
+    else:
+        requisicao = inf.informacoesCaso(filtros = {
+                'page': '2'
+            
+            })
+
     for x in requisicao["casos"]:
         if x['details']:
             x['details'] = re.sub('<[^<]+?>', '', x['details'])
