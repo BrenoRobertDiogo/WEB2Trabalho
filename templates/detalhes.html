@@ -12,7 +12,7 @@
     <title>Trabalho</title>
 </head>
 
-<body>
+<body style="background-color: aliceblue;">
     <!-- NAVBAR BRABA -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03"
@@ -34,12 +34,15 @@
             </form> -->
         </div>
     </nav>
-    <div class="container">
+    <div class="container" style="background-color: white; box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;">
         <div class="row">
             <div class="col-3">
                 {% if pessoa['items'][0]['images'] %}
                 <img style="border-radius: 30%;" width="150" height="150"
-                    src="{{pessoa['items'][0]['images'][0]['large']}}" alt="imagem de {{pessoa['items'][0]['title']}}">
+                    src="" alt="imagem de {{pessoa['items'][0]['title']}}"
+                    onerror="this.src='https://interprete.me/wp-content/uploads/2015/05/foto-nao-encontrada.jpg';"
+                    
+                    >
 
                 {% endif %}
 
@@ -50,7 +53,15 @@
         </div>
 
         {% for valor in campos %}
+        {% if pessoa['items'][0][valor['filtro']].__class__.__name__ == 'list' %}
+                
+                {{pessoa['items'][0][valor['filtro']] | join(', ')}}
+                
+        {% else %}
             <p> <b>{{valor['mostrar']}}</b>: {{ pessoa['items'][0][valor['filtro']]}}</p>
+                
+        {% endif %}
+        
 
 
         {% endfor %}

@@ -5,10 +5,11 @@ import json
 from jinja2 import pass_eval_context
 from markupsafe import Markup, escape
 from datetime import datetime
+import re
 
 # python app.py --flask -run
 # base: https://www.fbi.gov/wanted/api
-app = Flask(__name__)
+app = Flask(__name__, static_folder='./assets')
 
 """ @app.route('/detalhes/')
 def hello_world():  # put application's code here
@@ -31,6 +32,9 @@ def casos():
         })
     requisicao = json.loads(requisicao.content)
     # print(requisicao)
+    for x in requisicao['items']:
+        if x['details']:
+            x['details'] = re.sub('<[^<]+?>', '', x['details'])
     return render_template('casos.html', todosDados=requisicao, procurados=requisicao['items'])
 
 
@@ -42,8 +46,14 @@ def detalhes():
         pega = requests.get('https://api.fbi.gov/wanted/v1/list', params = {
             'title': title
         }).json()
+
+    
+
+
     proibidinhos = ['images', '@id', 'path', 'title', 'files', 'uid']
-    campos = [{'mostrar': campo.replace('_', ' '), 'filtro': campo} for campo in pega['items'][0] if pega['items'][0][campo] and campo not in proibidinhos]
+    campos = [{'mostrar': campo.replace('_', ' ').capitalize(), 'filtro': campo} for campo in pega['items'][0] if pega['items'][0][campo] and campo not in proibidinhos]
+    if pega['items'][0]['details']:
+            pega['items'][0]['details'] = re.sub('<[^<]+?>', '', pega['items'][0]['details'])
     return render_template('detalhes.html', pessoa=pega, campos=campos, imagem=pega['items'][0]['images'])
 
 

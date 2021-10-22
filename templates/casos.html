@@ -19,7 +19,7 @@
     </style>
 </head>
 
-<body>
+<body style="overflow-x: hidden;">
     <!-- NAVBAR BRABA -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03"
@@ -55,19 +55,30 @@
             <div class="card" style="width: 18rem;">
                 <h4>{{procurado.title}}</h4>
                 {% if procurado.images[0].original %}
-                <img class="card-img-top" src="{{procurado.images[0].original}}" alt="Procurado do FBI" width="280"
-                    height="210">
+                  <img style="width: 100%" height="150" 
+                    src="{{procurado.images[0].original}}" alt="imagem de "
+                    onerror="this.src='https://interprete.me/wp-content/uploads/2015/05/foto-nao-encontrada.jpg';"
+                    
+                    >
 
                 {% endif %}
 
                 <div class="card-body">
-                    <p class="card-text detalhes"> <span class="">{{procurado.details}}</span> </p>
+                    {% if procurado.details %}
+                            <p class="card-text detalhes"> <span class="">{{procurado.details}}</span> </p>
+                    
+                    {% else %}
+                            
+                        <p>Sem dados</p>
+                    {% endif %}
+                    
+                    
                 </div>
                 <!-- <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#V{{loop.index}}">
                     Mais sobre
                 </button> -->
                 <form action="/detalhes" method="get" class="text-center">
-                    <textarea style="visibility: hidden;" name="sobre" cols="30" rows="10">{{procurado.title}}</textarea>
+                    <textarea style="visibility: hidden;" name="sobre" cols="1" rows="1">{{procurado.title}}</textarea>
                     <button type="submit" style="width: 100%;" class="d-flex btn btn btn-outline-danger text-center">
                         Mais sobre
                     </button>
