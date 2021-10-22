@@ -10,6 +10,17 @@
     <link rel="stylesheet" href="https://static.pingendo.com/bootstrap/bootstrap-4.3.1.css">
 
     <title>Trabalho</title>
+
+    <style>
+        .conjunto-infos {
+            border-top: 1px solid;
+            margin: 0;
+            padding: 10px 0px 10px 0px;
+        }
+        img {
+            padding: 10px;
+        }
+    </style>
 </head>
 
 <body style="background-color: aliceblue;">
@@ -37,28 +48,21 @@
     <div class="container" style="background-color: white; box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;">
         <div class="row">
             <div class="col-3">
-                {% if pessoa['items'][0]['images'] %}
-                <img style="border-radius: 30%;" width="150" height="150"
-                    src="" alt="imagem de {{pessoa['items'][0]['title']}}"
-                    onerror="this.src='https://interprete.me/wp-content/uploads/2015/05/foto-nao-encontrada.jpg';"
-                    
-                    >
-
-                {% endif %}
-
+                <img style="border-radius: 15%;" width="150" height="150"
+                    src="{{ imagem[0].original }}" alt="imagem de {{pessoa['casos'][0]['title']}}"
+                    onerror="src='https://interprete.me/wp-content/uploads/2015/05/foto-nao-encontrada.jpg';">
             </div>
             <div class="col-9">
-                <h1 class=""><b> {{pessoa['items'][0]['title']}}</b> </h1>
+                <h1 class=""><b> {{pessoa['casos'][0]['title']}}</b> </h1>
             </div>
         </div>
 
         {% for valor in campos %}
-        {% if pessoa['items'][0][valor['filtro']].__class__.__name__ == 'list' %}
-                
-                {{pessoa['items'][0][valor['filtro']] | join(', ')}}
-                
+        {% if pessoa['casos'][0][valor['filtro']].__class__.__name__ == 'list' %}
+            <p class="conjunto-infos"> <b>{{ valor['mostrar'] }}</b>: {{ pessoa['casos'][0][valor['filtro']] | join(', ') }}</p>
+
         {% else %}
-            <p> <b>{{valor['mostrar']}}</b>: {{ pessoa['items'][0][valor['filtro']]}}</p>
+            <p class="conjunto-infos"> <b>{{valor['mostrar']}}</b>: {{ pessoa['casos'][0][valor['filtro']]}}</p>
                 
         {% endif %}
         
@@ -67,6 +71,11 @@
         {% endfor %}
         <!-- {{pessoa}} -->
     </div>
+
+    <footer>
+        <p style="width: 100%; background-color: black; color: white; text-align: center; position: relative; bottom: 0; margin-bottom: 0px;">Mais informações para denúcias utilize o site oficial do <a href="https://www.fbi.gov/">FBI</a></p>
+    </footer>
+
     <!-- BOOTSTRAP -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">

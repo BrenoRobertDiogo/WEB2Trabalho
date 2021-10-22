@@ -1,4 +1,3 @@
-from json import loads, dumps
 from requests import get
 
 urlApi = "https://api.fbi.gov/wanted/v1/list"
@@ -14,16 +13,16 @@ def buscaDados(filtros={}):
         return None
 
 def tratamentoDados(dados):
-    infos = ["title", "details", "reward_text", "subjects", "description", "race", "images", "hair", "caution", "field_offices", "scars_and_marks", "aliases", "race_raw", "suspects", "legat_names", "eyes", "possible_countries", "additional_information", "remarks", "path", "sex", "eyes_raw", "possible_states", "race", "warning_message"]
+    infos = ["title", "details", "reward_text", "subjects", "description", "race", "images", "hair", "caution", "field_offices", "scars_and_marks", "aliases", "race_raw", "suspects", "legat_names", "eyes", "possible_countries", "additional_information", "remarks", "path", "sex", "eyes_raw", "possible_states", "race", "warning_message", "weight", "height_max"]
 
-    retorno = []
-    for x in dados:
+    retorno = {"geral": dados["total"], "casos": []}
+    for x in dados["items"]:
         caso = {}
         for y in range(len(infos)):
             caso[infos[y]] = x[infos[y]]
-        retorno.append(caso)
+        retorno["casos"].append(caso)
     return retorno
 
 def informacoesCaso(filtros={}):
-    dados = tratamentoDados(buscaDados(filtros).json()["items"])
+    dados = tratamentoDados(buscaDados(filtros).json())
     return dados

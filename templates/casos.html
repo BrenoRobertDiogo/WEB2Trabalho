@@ -43,11 +43,11 @@
 
     <!-- PARTE PRINCIPAL -->
     <div class="d-flex justify-content-center">
-        <h1 class="">Total de casos: {{ todosDados.total }}</h1>
+        <h1 class="">Total de casos: {{ todosDados.geral }}</h1>
     </div>
 
     <div class="row justify-content-center">
-        {% for procurado in procurados %}
+        {% for procurado in todosDados.casos %}
 
 
         <div class="col m-5 efeitoManeiro">
@@ -88,6 +88,10 @@
         </div>
         {% endfor %}
     </div>
+
+    <footer>
+        <p style="width: 100%; background-color: black; color: white; text-align: center; position: relative; bottom: 0; margin-bottom: 0px;">Mais informações para denúcias utilize o site oficial do <a href="https://www.fbi.gov/">FBI</a></p>
+    </footer>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
